@@ -1,3 +1,9 @@
+# Random Scripts Repository
+Hi Everyone, 
+
+This repository contains random scripts written in different languages.
+
+# License
 MIT License
 
 Copyright (c) 2025 Zamsheed Khan
