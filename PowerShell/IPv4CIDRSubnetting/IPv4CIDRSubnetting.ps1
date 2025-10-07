@@ -295,7 +295,7 @@ function Get-HostMaskUInt
             Binary to Numeric Conversion Check:
             32768 + 16384 + 8192 + 4096 + 2048 + 1024 + 512 + 256 + 128 + 64 + 32 + 16 + 8 + 4 + 2 + 1 = 65535
 
-        .PARAMETER hostBits
+        .PARAMETER HostBitsByte
         Host bits as byte type
 
         .INPUTS
