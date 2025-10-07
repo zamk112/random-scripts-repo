@@ -41,7 +41,7 @@ class PSCommand:
         Constructor is used to initialise the path to the PowerShell Script file. and also the PowerShell command to execute. 
         psCmdLet is the cmdLet that's going to be executed from the file.
         """
-        self.__psScriptCmdStr = ". " + os.path.dirname(__file__) + os.sep + "CIDRSubnetting.ps1; " + psCmdLet
+        self.__psScriptCmdStr = ". " + os.path.dirname(__file__) + os.sep + "IPv4CIDRSubnetting.ps1; " + psCmdLet
         self.__psCmdLst = ["pwsh", "-Command", self.__psScriptCmdStr]
 
     def runPsCommand(self) -> str:
