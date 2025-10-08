@@ -491,8 +491,8 @@ function Get-BroadcastIpAddressUInt
         3232236031
 
         .EXAMPLE
-        PS> Get-BroadcastIpAddressUInt -networkIpUInt 169607168 -hostMaskUInt 512 # For '10.28.0.0/23'
-        169607680
+        PS> Get-BroadcastIpAddressUInt -networkIpUInt 169607168 -hostMaskUInt 511 # For '10.28.0.0/23'
+        169607679
 
     #>
 }
