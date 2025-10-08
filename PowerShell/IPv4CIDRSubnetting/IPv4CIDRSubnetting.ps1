@@ -487,12 +487,12 @@ function Get-BroadcastIpAddressUInt
         Returns a unsigned integer value
 
         .EXAMPLE
-        PS> Get-BroadcastIpAddressUInt -networkIpUInt 3232235776 -hostMaskUInt 256 # For '192.168.1.0/24'
+        PS> Get-BroadcastIpAddressUInt -networkIpUInt 3232235776 -hostMaskUInt 255 # For '192.168.1.0/24'
         3232236031
 
         .EXAMPLE
         PS> Get-BroadcastIpAddressUInt -networkIpUInt 169607168 -hostMaskUInt 512 # For '10.28.0.0/23'
-        169607679
+        169607680
 
     #>
 }
@@ -618,7 +618,7 @@ function Get-IPv4CIDRTranslation
         - Last IPv4 Address
 
         .EXAMPLE
-        PS> Get-IPCIDRTranslation -CIDRAddress "192.168.1.0/24"
+        PS> Get-IPv4CIDRTranslation -CIDRAddress "192.168.1.0/24"
         Name                           Value
         ----                           -----
         FirstHost                      {[Octets, 192.168.1.1], [Numerical, 3232235777], [Binary, 11000000101010000000000100000001]}
@@ -630,7 +630,7 @@ function Get-IPv4CIDRTranslation
         NetworkIP                      {[Octets, 192.168.1.0], [Numerical, 3232235776], [Binary, 11000000101010000000000100000000]}
 
         .EXAMPLE
-        PS> Get-IPCIDRTranslation -CIDRAddress "10.0.1.0/16"
+        PS> Get-IPv4CIDRTranslation -CIDRAddress "10.0.1.0/16"
         WARNING: Host bit(s) is not valid when comparing to subnet mask, host bit(s) will be zero!
 
         Name                           Value
