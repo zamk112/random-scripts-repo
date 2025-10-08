@@ -54,7 +54,7 @@ Maybe I should also add a warning for these 🤔 and also for `\0` too.
 ## Bitwise operations
 Before I start discussing bitwise operations, the first thing I need to discuss is conversion from a decimal value to a unsigned integer value for bitwise operatoin and then the binary representation of the unsigned integer value, which both applies to octets of the IP address prefix and subnet suffix of the IPv4 CIDR notation.
 
-## decimal to unsigned integer conversion
+## Decimal to unsigned integer conversion
 ## 8 bit/1 byte/1 octet representation
 First and foremost, we know that 1 byte is 8 bits and 1 byte represents an octet in the IP address. And we know that the maximum value 1 byte (or 8 bits) can store is 255. What does this look like?  
 
@@ -153,7 +153,7 @@ Just formatting the binary value by adding a dot after every 8th bit.
 
 `11000000.10101000.00000001.00000000` = $3232235776$ = `192.168.1.0`
 
-# Conslusion
+# Conclusion
 If I was to implement by hand operation as code, it would have had more code, but converting the values an unsigned integer made me write less code and also help me to relearn and have a better understanding from a developers perspective.  
 
 
