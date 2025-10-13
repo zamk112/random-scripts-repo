@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        Ipv4 CIDR Subnetting Calculator
+    </title>
+    <style>
+        .header-region {
+            max-width: fit-content;
+            margin-inline: auto;
+        }
+
+        .header-region header {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: 2em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header-region">
+        <header>IPv4 CIDR Subnetting Calculator</header>
+        <textarea>
+                IP Address Space....
+                Subnet 1....
+                Subnet 2....
+                ......
+            </textarea>
+    </div>
+    <div class="main-region">
+        <div class="drawer-list">
+            <h3>Drawer</h3>
+            <ul>
+                <li>IP Address Space</li>
+                <li>Subnet 1</li>
+                <li>Subnet 2</li>
+            </ul>
+        </div>
+        <div class="cidr-calc-region">
+            <h3>CIDR Calculation Region</h3>
+            <div id="cidr-notation">
+                <h4>CIDR Notation: 10.28.0.0/16</h4>
+            </div>
+            <hr />
+            <div id="count-of-ip-address">
+                <h4>Number of IP Address: 65536</h4>
+                <math>
+                    <mrow>
+                        <mi>n</mi>
+                        <mo>=</mo>
+                        <msup>
+                            <mi>2</mi>
+                            <mn>(32 - s)</mn>
+                        </msup>
+                    </mrow>
+                </math>
+                <br />
+                <math>
+                    <mrow>
+                        <mi>n</mi>
+                        <mo>=</mo>
+                        <msup>
+                            <mi>2</mi>
+                            <mn>(32 - 16)</mn>
+                        </msup>
+                    </mrow>
+                </math>
+                <br />
+                <math>
+                    <mrow>
+                        <mi>n</mi>
+                        <mo>=</mo>
+                        <msup>
+                            <mi>2</mi>
+                            <mn>16</mn>
+                        </msup>
+                    </mrow>
+                </math>
+                <br />
+                <math>
+                    <mrow>
+                        <mi>n</mi>
+                        <mo>=</mo>
+                        <mn>65536</mn>
+                    </mrow>
+                </math>
+            </div>
+            <hr />
+            <div id="host-bits-byte">
+                <h4>Host Bits: 16</h4>
+                <math>
+                    <mrow>
+                        <mi>n</mi>
+                        <mo>=</mo>
+                        <mn>32</mn>
+                        <mo>-</mo>
+                        <mn>s</mn>
+                    </mrow>
+                </math>
+                <br />
+                <math>
+                    <mrow>
+                        <mi>n</mi>
+                        <mo>=</mo>
+                        <mn>32</mn>
+                        <mo>-</mo>
+                        <mn>16</mn>
+                    </mrow>
+                </math>
+                <br />       
+                <math>
+                    <mrow>
+                        <mi>n</mi>
+                        <mo>=</mo>
+                        <mn>16</mn>
+                    </mrow>
+                </math>                         
+            </div>
+            <hr />
+            <div id="host-mask">
+                <h4>Host Mask</h4>
+                <h5>Integer Value: 65535</h5>
+                <h5>Binary Value: 00000000000000001111111111111111</h5>
+                <h5>Octet Value: 0.0.255.255</h5>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
