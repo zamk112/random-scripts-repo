@@ -22,15 +22,15 @@ Lastly, to get the IPv4 CIDR Translation (when calling `Get-IPv4CIDRTranslation`
 
 I also did add two more cmdlet for comparing subnets (`Compare-Subnets`, checking subnets for overlaps) and also testing IP addresses in subnets (`Test-IPInSubnet`).
 
-Each CmdLet has detailed comments explaining how the function works in terms of bitwise operations and mathemtical approach (if applicable). 
+Each CmdLet has detailed comments explaining how the function works in terms of bitwise operations and mathematical approach (if applicable). 
 
 This is just an overview and how I came to my solution or what I needed to understand subnets.
 
 # Understanding Octets & Bitwise operations
-There's a few important elements that I had remember in order to perform bitwise operations. This is why you will predominatly see all variables and parameter variables explcitly casted to a byte (predominatly for subnet suffix and host bits) and unsigned integer (and I wanted to make sure and understand that I am using the right variables types throughout the script).
+There's a few important elements that I had remember in order to perform bitwise operations. This is why you will predominantly see all variables and parameter variables explicitly casted to a byte (predominantly for subnet suffix and host bits) and unsigned integer (and I wanted to make sure and understand that I am using the right variables types throughout the script).
 
 ## IPv4 CIDR subnet suffix and host bits
-For the CIDR subnet suffix and host bits, I've decided to explcitly cast these to a `byte` type. In IPv4 CIDR notation the maximum value of the suffix is `/32`. Meaning:  
+For the CIDR subnet suffix and host bits, I've decided to explicitly cast these to a `byte` type. In IPv4 CIDR notation the maximum value of the suffix is `/32`. Meaning:  
   * Each octet can have the maximum value of 255 or,
   * IPv4 address has a maximum bit value is 32 bits (or 4 bytes). 
 
@@ -43,7 +43,7 @@ You can run the following in the PowerShell REPL to verify:
 Although a bytes value ranges from 0 to 255, you will see on parameter where it is asking for a subnet suffix number of the host bit number, I have added a `ValidateRange` attribute to restrict the parameter values from 0 to 32. *These values are not used for bitwise operations*. When do I do use them bitwise operation? When the host bits converted a host mask and then taking the inverse of the host mask with the bitwise NOT (`!`) operation to calculate the subnet mask.
 
 ### When octet in subnet mask is 255
-When an octet in the subnet mask is 255, this means that the octet of the IP address cannot change. These are known as **Network bits** in the IP address. The rest are known as **Host bits**, which can vary. But as an FYI, traditional rules says for usuable host addresses you need to leave 2 host bits, which is 30 or less bits due to:  
+When an octet in the subnet mask is 255, this means that the octet of the IP address cannot change. These are known as **Network bits** in the IP address. The rest are known as **Host bits**, which can vary. But as an FYI, traditional rules says for usable host addresses you need to leave 2 host bits, which is 30 or less bits due to:  
   * `/31` - Special use for point-to-point links (RFC 3021)
   * `/32` - Single host address (i.e 127.0.0.1/32 used for host routes, loopback)
 
@@ -117,7 +117,7 @@ $168 = 128 + 32 + 8 = 10101000$
 But this is only for **1 octet**, we need to do this **3 more times**. By hand it might not be a problem, but programmatically, it's a bit of an overhead if we try to replicate by hand approach.
 
 ## 32 bits/4 bytes/4 octet representation
-Since the by hand approach is a bit of an overhead programatically and I wanted to path of least work 😜. An IPv4 address is 32 bits which is comprised of 4 octets of 8 bits. So we need a bigger handy (not so) dandy table.  
+Since the by hand approach is a bit of an overhead programmatically and I wanted to path of least work 😜. An IPv4 address is 32 bits which is comprised of 4 octets of 8 bits. So we need a bigger handy (not so) dandy table.  
 
 |Octet         |1st       |          |         |         |         |        |        |        |2nd    |       |       |       |      |      |      |3rd  |     |     |    |    |    |    |    |4th|   |   |   |   |   |   |   |   |
 |--------------|----------|----------|---------|---------|---------|--------|--------|--------|-------|-------|-------|-------|------|------|------|-----|-----|-----|----|----|----|----|----|---|---|---|---|---|---|---|---|---|  
@@ -145,7 +145,7 @@ So we know that with the CIDR suffix of `/32` would be $111111111111111111111111
 |Binary        |1         |1         |0        |0        |0        |0       |0       |0       |1      |0      |1      |0      |1     |0     |0     |0    |0    |0    |0   |0   |0   |0   |0   |1  |0  |0  |0  |0  |0  |0  |0  |0  |
 
 
-So `192.168.1.0` in binary form is `11000000101010000000000100000000` but if we add the values together and store it in a unsigned integer variable then bitwise operations are much eaiser to perform.
+So `192.168.1.0` in binary form is `11000000101010000000000100000000` but if we add the values together and store it in a unsigned integer variable then bitwise operations are much easier to perform.
 
 $3232235776 = 2147483648 + 1073741824 + 8388608 + 2097152 + 524288 + 256$
 
