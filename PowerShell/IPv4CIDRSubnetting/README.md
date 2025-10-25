@@ -5,7 +5,7 @@ Now it is 😁, so I decided to re-learn how to do subnetting with CIDR addresse
 
 Later on, I discovered that Python has the `ipaddress` module, which performs all the tasks that my script [CIDRSubnetting.ps1](./IPv4CIDRSubnetting.ps1) does 🤦🏽‍♂️. But the good thing is I can do some unit tests (see [test_IPv4CIDRSubnetting.py](./test_IPv4CIDRSubnetting.py)) to compare with the `IPv4Network` class found in `ipaddress` module using the `subprocess` module to execute my PowerShell CmdLets. 
 
-I know explicitly casting and/or parsing all my variables and parameters is overkill but it's a good remainder of what the types are especially when it comes to bitwise operations. Either way, good fun doing bitwise operations to get the blood flowing!
+I know explicitly casting and/or parsing all my variables and parameters is overkill but it's a good reminder of what the types are especially when it comes to bitwise operations. Either way, good fun doing bitwise operations to get the blood flowing!
 
 # Introduction
 Honestly, I should have done the bitwise operations by hand first before writing code but anyways when I did do it by hand this is the process that I came up with:  
@@ -40,7 +40,7 @@ You can run the following in the PowerShell REPL to verify:
 |`[byte]::MinValue`|0    |
 |`[byte]::MaxValue`|255  |
 
-Although a bytes value ranges from 0 to 255, you will see on parameter where it is asking for a subnet suffix number of the host bit number, I have added a `ValidateRange` attribute to restrict the parameter values from 0 to 30. *These values are not used for bitwise operations*. When do I do use them bitwise operation? When the host bits converted a host mask and then taking the inverse of the host mask with the bitwise NOT (`!`) operation to calculate the subnet mask.
+Although a bytes value ranges from 0 to 255, you will see on parameter where it is asking for a subnet suffix number of the host bit number, I have added a `ValidateRange` attribute to restrict the parameter values from 0 to 32. *These values are not used for bitwise operations*. When do I do use them bitwise operation? When the host bits converted a host mask and then taking the inverse of the host mask with the bitwise NOT (`!`) operation to calculate the subnet mask.
 
 ### When octet in subnet mask is 255
 When an octet in the subnet mask is 255, this means that the octet of the IP address cannot change. These are known as **Network bits** in the IP address. The rest are known as **Host bits**, which can vary. But as an FYI, traditional rules says for usuable host addresses you need to leave 2 host bits, which is 30 or less bits due to:  
@@ -52,10 +52,10 @@ Although if you do have a CIDR notation with `/32`, this just means you have hav
 Maybe I should also add a warning for these 🤔 and also for `\0` too.
 
 ## Bitwise operations
-Before I start discussing bitwise operations, the first thing I need to discuss is conversion from a decimal value to a unsigned integer value for bitwise operatoin and then the binary representation of the unsigned integer value, which both applies to octets of the IP address prefix and subnet suffix of the IPv4 CIDR notation.
+Before I start discussing bitwise operations, the first thing I need to discuss is conversion from a decimal value to a unsigned integer value for bitwise operation and then the binary representation of the unsigned integer value, which both applies to octets of the IP address prefix and subnet suffix of the IPv4 CIDR notation.
 
 ## Decimal to unsigned integer conversion
-## 8 bit/1 byte/1 octet representation
+## 8 bits/1 byte/1 octet representation
 First and foremost, we know that 1 byte is 8 bits and 1 byte represents an octet in the IP address. And we know that the maximum value 1 byte (or 8 bits) can store is 255. What does this look like?  
 
 |             |   |   |   |   |   |   |   |   |  
