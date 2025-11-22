@@ -149,7 +149,7 @@ function Convert-IPStrToIPUInt
         $IpPrefixUInt += $shifted
     }
 
-    Write-Debug "IP Unsiged Integer Value: $($IpPrefixUInt)"
+    Write-Debug "IP Unsigned Integer Value: $($IpPrefixUInt)"
     Write-Debug "IP Binary Value: $([Convert]::ToString($IpPrefixUInt, 2).PadLeft(32, '0'))"
 
     return $IpPrefixUInt
@@ -222,7 +222,7 @@ function Convert-IPStrToIPUInt
         None. You can't pipe objects to Convert-IPStrToIPUInt.
 
         .OUTPUTS
-        Returns a Unsinged Integer value of IPv4 addresss.
+        Returns a Unsigned Integer value of IPv4 addresses.
 
         .EXAMPLE
         PS> Convert-IPStrToIPUInt -IPStr "192.168.1.0"
@@ -778,13 +778,13 @@ function Test-IPInSubnet
     The first part: ((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.){3} matches numbers from 0 to 255:
     1. 25[0-5] - matches numbers from 250 to 255 or,
     2. 2[0-4][0-9] - matches numbers from 200 to 249 or,
-    3. 1[0-9]{2} - matches numbers 100 to 109 (same thing as 1[0-9][0-9], exactly 2 occurence needs to occur) or,
-    4. [1-9]?[0-9] - matches numbers 0 - 99 ([1-9]? means the occurence can happen 0 or 1 time)
-    5. \. - the dot must be in the address for the first 3 occurence.
+    3. 1[0-9]{2} - matches numbers 100 to 109 (same thing as 1[0-9][0-9], exactly 2 occurrence needs to occur) or,
+    4. [1-9]?[0-9] - matches numbers 0 - 99 ([1-9]? means the occurrence can happen 0 or 1 time)
+    5. \. - the dot must be in the address for the first 3 occurrence.
     6. {3} - represents the first 3 octets where the above logic (1 to 5) must exactly occur 3 times.
     
     The second part: (25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])
-    This is the last or fourth octet. Exactly the same logic steps from 1 to 4 in the first part, however there is no occurence of the \. and the no exact repetition occurence needs to happen as per step 6 
+    This is the last or fourth octet. Exactly the same logic steps from 1 to 4 in the first part, however there is no occurrence of the \. and the no exact repetition occurrence needs to happen as per step 6 
     (only needs to happen once).
 
     ## Validation pattern for string version of CIDR Subnet Address
@@ -799,9 +799,9 @@ function Test-IPInSubnet
     3. [1-2]?[0-9] values can be from 0 to 29
 
     # Numerical considerations. 
-    Explicit type enfourcement was used to explicitly cast the numeric values to 2 numeric types are used throughout the script. 
+    Explicit type enforcement was used to explicitly cast the numeric values to 2 numeric types are used throughout the script. 
     
-    ## byte variale type
+    ## byte variable type
     The first one is byte since the CIDR subnet suffix has a range from 0 to 32, it is the smallest unsigned numerical type is that can be used and then for parameters a ValidateRange attribute is used 
     to restrict the input between 0 and 32.
 
@@ -814,7 +814,7 @@ function Test-IPInSubnet
         S_32 = 1*((2^32 - 1)/(2 - 1)) = 2^32 - 1
         S_32 = 4294967295
 
-    For explicitly casting ip address string to a unsigned integers ensure accuracy and consistenancy when comparing values. When converting the ip octet to a base 10 value and vice versa, it is easy to visualise 
+    For explicitly casting ip address string to a unsigned integers ensure accuracy and consistency when comparing values. When converting the ip octet to a base 10 value and vice versa, it is easy to visualise 
     in a binary-to-numeric table for converting and performing arithmetic and bitwise operations for calculating the network IP, broadcast IP, subnet mask, host mask and so on:
 
     |First Octet                                                                   |Second Octet                                              |Third Octet                            |Fourth Octet                   |
