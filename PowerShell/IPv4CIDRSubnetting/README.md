@@ -117,7 +117,7 @@ $168 = 128 + 32 + 8 = 10101000$
 But this is only for **1 octet**, we need to do this **3 more times**. By hand it might not be a problem, but programmatically, it's a bit of an overhead if we try to replicate by hand approach.
 
 ## 32 bits/4 bytes/4 octet representation
-Since the by hand approach is a bit of an overhead programmatically and I wanted to path of least work 😜. An IPv4 address is 32 bits which is comprised of 4 octets of 8 bits. So we need a bigger handy (not so) dandy table.  
+Since the by hand approach is a bit of an overhead programmatically and I wanted to take the path of least work 😜. An IPv4 address is 32 bits which is comprised of 4 octets of 8 bits. So we need a bigger handy (not so) dandy table.  
 
 |Octet         |1st       |          |         |         |         |        |        |        |2nd    |       |       |       |      |      |      |3rd  |     |     |    |    |    |    |    |4th|   |   |   |   |   |   |   |   |
 |--------------|----------|----------|---------|---------|---------|--------|--------|--------|-------|-------|-------|-------|------|------|------|-----|-----|-----|----|----|----|----|----|---|---|---|---|---|---|---|---|---|  
@@ -125,7 +125,7 @@ Since the by hand approach is a bit of an overhead programmatically and I wanted
 |Powers of 2^x |2^31      |2^30      |2^29     |2^28     |2^27     |2^26    |2^25    |2^24    |2^23   |2^22   |2^21   |2^20   |2^19  |2^18  |2^17  |2^16 |2^15 |2^14 |2^13|2^12|2^11|2^10|2^9 |2^8|2^7|2^6|2^5|2^4|2^3|2^2|2^1|2^0|  
 |Total         |2147483648|1073741824|536870912|268435456|134217728|67108864|33554432|16777216|8388608|4194304|2097152|1048576|524288|262144|131072|65536|32768|16384|8192|4096|2048|1024|512 |256|128|64 |32 |16 |8  |4  |2  |1  |  
 
-Now this does not look nice to work with by hand. But I can assure you many (if not all) scripting and program languages does this matter. But if I go on any further, let's add the last row (*Total*) and see what we get:
+Now this does not look nice to work with by hand. But I can assure you many (if not all) scripting and program languages can do it in this matter. But if I go on any further, let's add the last row (*Total*) and see what we get:
 
 $4294967295 = 2147483648 + 1073741824 + 536870912 + 268435456 + 134217728 + 67108864 + 33554432 + 16777216 + 8388608 + 4194304 + 2097152 + 1048576 + 524288 + 262144 + 131072 + 65536 + 32768 + 16384 + 8192 + 4096 + 2048 + 1024 + 512 + 256 + 128 + 64 + 32 + 16 + 8 + 4 + 2 + 1$
 
