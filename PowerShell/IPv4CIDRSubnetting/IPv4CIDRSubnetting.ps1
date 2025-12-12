@@ -139,7 +139,7 @@ function Convert-IPNumToIpStr
 
 function Convert-IPStrToIPUInt 
 {
-    param ([Parameter(Mandatory=$true)][string][ValidatePattern("^((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])$")]$IPStr)
+    param ([Parameter(Mandatory=$true)][string][ValidatePattern("^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])$")]$IPStr)
     [byte[]]$splitIp = $IPStr -split "\."
     [uint]$IpPrefixUInt = 0
 
@@ -534,7 +534,7 @@ function Get-TotalCountOfIPAddress
 
 function Get-IPv4CIDRTranslation 
 {
-    param([Parameter(Mandatory=$true)][string][ValidatePattern("^((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\/(3[0-2]|[1-2]?[0-9])$")]$CIDRAddress)
+    param([Parameter(Mandatory=$true)][string][ValidatePattern("^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\/(?:3[0-2]|[1-2]?[0-9])$")]$CIDRAddress)
     
     [uint]$IpPrefixUInt = Convert-IPStrToIPUInt -IPStr $($CIDRAddress -split "\/")[0]
     $subnetSuffixNum = [byte]::Parse($($CIDRAddress -split "\/")[1])
@@ -647,8 +647,8 @@ function Get-IPv4CIDRTranslation
 
 function Compare-Subnets
 {
-    param ([Parameter(Mandatory=$true)][string][ValidatePattern("^((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\/(3[0-2]|[1-2]?[0-9])$")]$CIDRAddressA,
-           [Parameter(Mandatory=$true)][string][ValidatePattern("^((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\/(3[0-2]|[1-2]?[0-9])$")]$CIDRAddressB
+    param ([Parameter(Mandatory=$true)][string][ValidatePattern("^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\/(?:3[0-2]|[1-2]?[0-9])$")]$CIDRAddressA,
+           [Parameter(Mandatory=$true)][string][ValidatePattern("^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\/(?:3[0-2]|[1-2]?[0-9])$")]$CIDRAddressB
           )
     
     [uint]$ipPrefixUIntA = Convert-IPStrToIPUInt -IPStr ($CIDRAddressA -split "\/")[0]
@@ -716,8 +716,8 @@ function Compare-Subnets
 
 function Test-IPInSubnet
 {
-    param([Parameter(Mandatory=$true)][string][ValidatePattern("^((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])$")]$IPStr,
-          [Parameter(Mandatory=$true)][string][ValidatePattern("^((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\/(3[0-2]|[1-2]?[0-9])$")]$CIDRAddress
+    param([Parameter(Mandatory=$true)][string][ValidatePattern("^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])$")]$IPStr,
+          [Parameter(Mandatory=$true)][string][ValidatePattern("^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\/(?:3[0-2]|[1-2]?[0-9])$")]$CIDRAddress
          )
 
     [uint]$ipNum = Convert-IPStrToIPUInt -IPStr $IPStr
@@ -770,12 +770,12 @@ function Test-IPInSubnet
     Detailed explanation are in the function comments. But will generalise a few items that are used frequently through the code.
 
     # Regex Validation patterns
-    The beginning (^) and end ($) anchors are added to exactly match the string IP address or CIDR subnet address parameters. This is so that you do not enter a value like 'hello192.168.1.0hello' as an example.
+    The beginning (^) and end ($) anchors are added to exactly match the string IP address or CIDR subnet address parameters. This is so that you do not enter a value like 'hello192.168.1.0hello' as an example. And also using non capturing groups for regex performance optimization. 
 
     ## Validation pattern for string version of IP address. 
-    Regex Pattern: "^((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])$"
+    Regex Pattern: "^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])$"
 
-    The first part: ((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.){3} matches numbers from 0 to 255:
+    The first part: (?:(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.){3} matches numbers from 0 to 255:
     1. 25[0-5] - matches numbers from 250 to 255 or,
     2. 2[0-4][0-9] - matches numbers from 200 to 249 or,
     3. 1[0-9]{2} - matches numbers 100 to 109 (same thing as 1[0-9][0-9], exactly 2 occurrence needs to occur) or,
@@ -783,17 +783,17 @@ function Test-IPInSubnet
     5. \. - the dot must be in the address for the first 3 occurrence.
     6. {3} - represents the first 3 octets where the above logic (1 to 5) must exactly occur 3 times.
     
-    The second part: (25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])
+    The second part: (?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])
     This is the last or fourth octet. Exactly the same logic steps from 1 to 4 in the first part, however there is no occurrence of the \. and the no exact repetition occurrence needs to happen as per step 6 
     (only needs to happen once).
 
     ## Validation pattern for string version of CIDR Subnet Address
-    Regex pattern: "^((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\/(3[0-2]|[1-2]?[0-9])$"
+    Regex pattern: "^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\/(3[0-2]|[1-2]?[0-9])$"
 
-    The first part: ((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])
+    The first part: (?:(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])
     This is the same as ip address validation in the Validation pattern for string version of IP address section.
 
-    The second part: \/(3[0-2]|[1-2]?[0-9]):
+    The second part: \/(?:3[0-2]|[1-2]?[0-9]):
     1. \/ - expects "/" after the ip address portion
     2. 3[0-2] values can be 30, 31, 32 or,
     3. [1-2]?[0-9] values can be from 0 to 29
