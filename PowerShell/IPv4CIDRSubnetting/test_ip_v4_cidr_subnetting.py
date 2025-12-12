@@ -361,8 +361,8 @@ class TestCompareCIDRPrivateClassC(unittest.TestCase):
         ps_cmd_actual = PSCommand("Get-TotalCountOfIPAddress -subnetSuffixNum 24").run_ps_command().strip()
         self.assertEqual(int(ps_cmd_actual), total_address_expected)
 
-    def test_networkip_address_uint(self):
-        """Testing network ip addresss as a numeric value"""
+    def test_network_ip_address_uint(self):
+        """Testing network ip address as a numeric value"""
         network_ip_address_num_expected = 3232235776
         self.assertEqual(int(self.cidr_range_py.network_address), network_ip_address_num_expected)
 
