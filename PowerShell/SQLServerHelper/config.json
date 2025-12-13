@@ -1,0 +1,4 @@
+{
+    "SourceConnectionString": "Server=[SERVER];Database=[DATABASE];User Id=[USER_NAME];Password=[PASSWORD];TrustServerCertificate=True;",
+    "DestinationConnectionString": "Server=[SERVER];Database=[DATABASE];User Id=[USER_NAME];Password=[PASSWORD];TrustServerCertificate=True;"
+}
